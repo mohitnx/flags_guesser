@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:uiflags/flags_guess_game/data.dart';
@@ -13,10 +12,11 @@ class Flagss extends StatefulWidget {
 class _FlagssState extends State<Flagss> {
   int rhealth = 3;
   int rscore = 0;
-  int rtotalq = 1;
+  int rtotalq = 0;
   bool selected = false;
 
   int ran1 = Random().nextInt(11);
+  int ran2 = Random().nextInt(4);
 
   List<Color> borderColor = [
     Colors.transparent,
@@ -44,7 +44,7 @@ class _FlagssState extends State<Flagss> {
     setState(() {
       rscore++;
       rtotalq++;
-      (ran1 > 10) ? ran1-- : ran1++;
+      (ran1 > 10) ? ran1 = ran1 - ran2 - 1 : ran1 = ran1 + 1;
     });
 
     if (rtotalq >= 8) {
@@ -85,7 +85,7 @@ class _FlagssState extends State<Flagss> {
                     color: Colors.red),
               ),
               content: Text(
-                'Your score was $rscore/8',
+                'Your score was $rscore/7',
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
