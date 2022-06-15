@@ -28,13 +28,16 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const FavApp()));
-            },
-            child: const Text('random name generator'),
+          const SizedBox(
+            height: 50,
           ),
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => const FavApp()));
+          //   },
+          //   child: const Text('random name generator'),
+          // ),
           TextButton(
             onPressed: () {
               Navigator.push(context,
