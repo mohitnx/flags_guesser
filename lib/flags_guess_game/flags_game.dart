@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:uiflags/flags_guess_game/data.dart';
+
+import 'package:uiflags/main.dart';
 
 class Flagss extends StatefulWidget {
   const Flagss({Key? key}) : super(key: key);
@@ -14,9 +17,12 @@ class _FlagssState extends State<Flagss> {
   int rscore = 0;
   int rtotalq = 0;
   bool selected = false;
+  bool canceltimer = false;
+  String showtimer = '10';
 
-  int ran1 = Random().nextInt(11);
-  int ran2 = Random().nextInt(4);
+  int ran1 = Random().nextInt(7);
+  int ran2 = Random().nextInt(7) + 1;
+  int timer = 10;
 
   List<Color> borderColor = [
     Colors.transparent,
@@ -44,7 +50,7 @@ class _FlagssState extends State<Flagss> {
     setState(() {
       rscore++;
       rtotalq++;
-      (ran1 > 10) ? ran1 = ran1 - ran2 - 1 : ran1 = ran1 + 1;
+      (ran1 > 7) ? ran1 = ran1 - ran2 - 1 : ran1 = ran1 + 1;
     });
 
     if (rtotalq >= 8) {
@@ -74,6 +80,7 @@ class _FlagssState extends State<Flagss> {
 
   gameoverdialogue() {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -85,7 +92,7 @@ class _FlagssState extends State<Flagss> {
                     color: Colors.red),
               ),
               content: Text(
-                'Your score was $rscore/7',
+                'Your score was $rscore/8',
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -99,7 +106,15 @@ class _FlagssState extends State<Flagss> {
                           MaterialPageRoute(
                               builder: (context) => const Flagss()));
                     },
-                    child: const Text('Play Again'))
+                    child: const Text('Play Again')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyHomePage()));
+                    },
+                    child: const Text('Back To Home')),
               ]);
         });
   }
@@ -132,7 +147,7 @@ class _FlagssState extends State<Flagss> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      rtotalq.toString(),
+                      showtimer,
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
